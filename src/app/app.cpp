@@ -277,7 +277,7 @@ ParseArgsStatus CApplication::ParseArguments(int argc, char *argv[])
                 GetLogger()->Message("  -runscene sceneNNN  run given scene on start\n");
                 GetLogger()->Message("  -scenetest          win every mission right after it's loaded\n");
                 GetLogger()->Message("  -loglevel level     set log level to level (one of: trace, debug, info, warn, error, none)\n");
-                GetLogger()->Message("  -language lang      set language (one of: en, de, fr, pl, ru)\n");
+                GetLogger()->Message("  -language lang      set language (one of: en, de, es, fr, pl, ru)\n");
                 GetLogger()->Message("  -langdir path       set custom language directory path\n");
                 GetLogger()->Message("  -datadir path       set custom data directory path\n");
                 GetLogger()->Message("  -savedir path       set custom save directory path (must be writable)\n");
@@ -1560,6 +1560,10 @@ char CApplication::GetLanguageChar() const
             langChar = 'D';
             break;
 
+        case LANGUAGE_SPANISH:
+            langChar = 'S';
+            break;
+
         case LANGUAGE_FRENCH:
             langChar = 'F';
             break;
@@ -1585,6 +1589,11 @@ bool CApplication::ParseLanguage(const std::string& str, Language& language)
     else if (str == "de")
     {
         language = LANGUAGE_GERMAN;
+        return true;
+    }
+    else if (str == "es")
+    {
+        language = LANGUAGE_SPANISH;
         return true;
     }
     else if (str == "fr")
@@ -1628,6 +1637,10 @@ void CApplication::SetLanguage(Language language)
             locale = "de_DE.utf8";
             break;
 
+        case LANGUAGE_SPANISH:
+            locale = "es_ES.UTF-8";
+            break;
+
         case LANGUAGE_FRENCH:
             locale = "fr_FR.utf8";
             break;
@@ -1660,6 +1673,10 @@ void CApplication::SetLanguage(Language language)
             else if (strncmp(envLang,"de",2) == 0)
             {
                 m_language = LANGUAGE_GERMAN;
+            }
+            else if (strncmp(envLang,"es",2) == 0)
+            {
+                m_language = LANGUAGE_SPANISH;
             }
             else if (strncmp(envLang,"fr",2) == 0)
             {
